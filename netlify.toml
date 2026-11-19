@@ -1,0 +1,236 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Keeps the card pages written by earlier builds (see scripts/generate-card-pages.ts).
+[[plugins]]
+  package = "/netlify/plugins/card-pages-cache"
+
+[functions]
+  external_node_modules = ["express", "@resvg/resvg-wasm"]
+  node_bundler = "esbuild"
+
+# The Netlify address answers only with a redirect to the real domain: crawlers that know it would otherwise reach
+# the site around Cloudflare (bot rules, cache) and be billed here. Deploy previews keep their own addresses.
+[[redirects]]
+  from = "https://proxytcg.netlify.app/*"
+  to = "https://sleeveready.com/:splat"
+  status = 301
+  force = true
+
+# A shared list (?list=…) opens the same page with the list's own link preview (server/share-preview.ts): any page
+# with that parameter goes to the function, which serves the page with the preview tags. Without it, nothing changes.
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/api/:splat?list=:list"
+  status = 200
+  force = true
+  query = {list = ":list"}
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/privacy/it"
+  to = "/.netlify/functions/api/privacy/it"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/terms/it"
+  to = "/.netlify/functions/api/terms/it"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/privacy"
+  to = "/.netlify/functions/api/privacy"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/terms"
+  to = "/.netlify/functions/api/terms"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/robots.txt"
+  to = "/.netlify/functions/api/robots.txt"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/.netlify/functions/api/sitemap.xml"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/sitemap-*"
+  to = "/.netlify/functions/api/sitemap-:splat"
+  status = 200
+  force = true
+
+# Visitors land on their browser language when a localised page exists; everyone else (and crawlers) on /en/.
+[[redirects]]
+  from = "/"
+  to = "/it/"
+  status = 302
+  force = true
+  conditions = {Language = ["it"]}
+
+[[redirects]]
+  from = "/"
+  to = "/de/"
+  status = 302
+  force = true
+  conditions = {Language = ["de"]}
+
+[[redirects]]
+  from = "/"
+  to = "/fr/"
+  status = 302
+  force = true
+  conditions = {Language = ["fr"]}
+
+[[redirects]]
+  from = "/"
+  to = "/es/"
+  status = 302
+  force = true
+  conditions = {Language = ["es"]}
+
+[[redirects]]
+  from = "/"
+  to = "/en/"
+  status = 301
+  force = true
+
+# Illustrator pages are rendered by the function (and cached by the CDN).
+[[redirects]]
+  from = "/en/:game/illustrators/:artist/"
+  to = "/.netlify/functions/api/en/:game/illustrators/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/en/:game/illustrators/:artist"
+  to = "/.netlify/functions/api/en/:game/illustrators/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/it/:game/illustratori/:artist/"
+  to = "/.netlify/functions/api/it/:game/illustratori/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/it/:game/illustratori/:artist"
+  to = "/.netlify/functions/api/it/:game/illustratori/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/de/:game/illustratoren/:artist/"
+  to = "/.netlify/functions/api/de/:game/illustratoren/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/de/:game/illustratoren/:artist"
+  to = "/.netlify/functions/api/de/:game/illustratoren/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/fr/:game/illustrateurs/:artist/"
+  to = "/.netlify/functions/api/fr/:game/illustrateurs/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/fr/:game/illustrateurs/:artist"
+  to = "/.netlify/functions/api/fr/:game/illustrateurs/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/es/:game/ilustradores/:artist/"
+  to = "/.netlify/functions/api/es/:game/ilustradores/:artist/"
+  status = 200
+
+[[redirects]]
+  from = "/es/:game/ilustradores/:artist"
+  to = "/.netlify/functions/api/es/:game/ilustradores/:artist/"
+  status = 200
+
+# Card pages (/it/pokemon/sv09/125/): the build writes those of the last year as static files, which win over these
+# rules. The rest are rendered by the function with their own title, text and canonical (an empty shell made Google
+# fold them together as duplicates); Cloudflare keeps each one for 30 days, so the function runs about once a month per page.
+[[redirects]]
+  from = "/:lang/:game/:set/:card/"
+  to = "/.netlify/functions/api/:lang/:game/:set/:card/"
+  status = 200
+
+[[redirects]]
+  from = "/:lang/:game/:set/:card"
+  to = "/.netlify/functions/api/:lang/:game/:set/:card"
+  status = 200
+
+# Expansion pages without a static file (upcoming sets, kept fresh) are rendered by the function; static pages win.
+[[redirects]]
+  from = "/:lang/:game/:set/"
+  to = "/.netlify/functions/api/:lang/:game/:set/"
+  status = 200
+
+[[redirects]]
+  from = "/:lang/:game/:set"
+  to = "/.netlify/functions/api/:lang/:game/:set"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    # Cloudflare (in front of Netlify) keeps every static file a week; each deploy purges its cache, so nothing
+    # goes stale. Netlify applies these headers only to static files: function responses set their own.
+    Cloudflare-CDN-Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Card images the print page exports to PNG (Cricut Print Then Cut): drawn on a canvas only when served from this
+# site, so they go through Netlify's image CDN, which fetches only from these card sources.
+[images]
+  remote_images = [
+  'https://cards\.scryfall\.io/.*',
+  'https://assets\.tcgdex\.net/.*',
+  'https://images\.scrydex\.com/.*',
+  'https://api\.lorcana\.ravensburger\.com/.*',
+  'https://cmsassets\.rgpub\.io/.*',
+  'https://images\.ygoprodeck\.com/.*',
+  'https://cdn\.starwarsunlimited\.com/.*',
+  'https://en\.onepiece-cardgame\.com/.*',
+  'https://fr\.onepiece-cardgame\.com/.*',
+  'https://asia-th\.onepiece-cardgame\.com/.*',
+  'https://d27a44hjr9gen3\.cloudfront\.net/.*',
+  'https://legendstory-production-s3-public\.s3\.amazonaws\.com/.*',
+  'https://world\.digimoncard\.com/.*',
+  'https://www\.dbs-cardgame\.com/.*',
+  'https://www\.gundam-gcg\.com/.*',
+  'https://www\.unionarena-tcg\.com/.*',
+  'https://en\.cf-vanguard\.com/.*',
+  'https://en\.palworld-official-cardgame\.com/.*',
+  'https://cardtrader\.com/.*',
+  'https://www\.cardtrader\.com/.*'
+]

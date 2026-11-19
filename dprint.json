@@ -1,0 +1,28 @@
+{
+  "lineWidth": 120,
+  "indentWidth": 2,
+  "useTabs": false,
+  "newLineKind": "lf",
+  "typescript": {
+    "quoteStyle": "preferSingle",
+    "jsx.quoteStyle": "preferDouble",
+    "semicolons": "prefer",
+    "bracePosition": "nextLine",
+    "nextControlFlowPosition": "nextLine",
+    "operatorPosition": "nextLine",
+    "trailingCommas": "onlyMultiLine",
+    "arrowFunction.useParentheses": "maintain",
+    "memberExpression.linePerExpression": true,
+    "module.sortImportDeclarations": "maintain",
+    "module.sortExportDeclarations": "maintain",
+    "importDeclaration.sortNamedImports": "maintain",
+    "exportDeclaration.sortNamedExports": "maintain"
+  },
+  "malva": {},
+  "includes": ["src/**/*.{ts,tsx,css}", "server/**/*.ts", "shared/**/*.ts", "scripts/**/*.ts", "tests/**/*.{ts,mjs}", "netlify/**/*.{ts,mts,js}", "*.{ts,js}"],
+  "excludes": ["**/node_modules", "dist", ".cache", ".card-pages", "**/*.json", "src/lib/setIcons.ts"],
+  "plugins": [
+    "npm:@dprint/typescript@0.101.0",
+    "npm:dprint-plugin-malva@0.16.1"
+  ]
+}

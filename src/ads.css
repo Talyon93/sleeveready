@@ -1,0 +1,93 @@
+/* The places kept for advertising (src/components/AdSlot.tsx), drawn as dashed boxes with their size while they are
+   empty. Each holds its final size, so an ad filling it later moves nothing; none of them is ever printed. */
+.ad-slot {
+  display: grid;
+  place-content: center;
+  gap: 3px;
+  box-sizing: border-box;
+  border: 1px dashed #cfc6b8;
+  border-radius: 7px;
+  background: repeating-linear-gradient(135deg, #f6f2ea 0 10px, #f1ece2 10px 20px);
+  color: #8a837d;
+  text-align: center;
+  list-style: none;
+}
+.ad-slot span {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ad-slot small {
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+}
+.ad-card {
+  aspect-ratio: 63/88;
+  align-self: start;
+}
+.ad-sheet {
+  height: 100px;
+  margin-top: 12px;
+}
+.ad-strip {
+  height: 90px;
+  margin: 0 0 22px;
+}
+/* Phones: a grid cell is about 105 px wide, too small for any ad, so the place becomes a band across the row
+   (320×100); the grid fills densely, so the card after it closes the gap the band would leave in its row. */
+@media (max-width: 760px) {
+  .ad-sheet {
+    display: none;
+  }
+  .ad-strip {
+    height: 100px;
+  }
+  .ad-card {
+    grid-column: 1/-1;
+    aspect-ratio: auto;
+    height: 100px;
+  }
+  .card-grid:has(.ad-card) {
+    grid-auto-flow: row dense;
+  }
+}
+/* Wide screens: columns in the side margins, fixed while the page scrolls. The home board (1240 px wide) gets one each
+   side instead of the band at the top; the catalogue (1388 px with the sheet) one on the left instead of the place in
+   the card grid, from the width where 160 px fit beside it. */
+.ad-rail {
+  display: none;
+  position: fixed;
+  top: 90px;
+  width: 160px;
+  height: 600px;
+  z-index: 1;
+}
+@media (min-width: 1640px) {
+  .ad-strip {
+    display: none;
+  }
+  .ad-rail.ad-home {
+    display: grid;
+  }
+  .ad-home.ad-left {
+    left: calc((100vw - 1240px) / 4 - 80px);
+  }
+  .ad-home.ad-right {
+    right: calc((100vw - 1240px) / 4 - 80px);
+  }
+}
+@media (min-width: 1800px) {
+  .ad-card {
+    display: none;
+  }
+  .ad-rail.ad-catalog {
+    display: grid;
+    left: calc((100vw - 1388px) / 4 - 80px);
+  }
+}
+@media print {
+  .ad-slot {
+    display: none !important;
+  }
+}

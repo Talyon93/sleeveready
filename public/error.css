@@ -1,0 +1,105 @@
+/* Error pages (shared/error-page.ts): the site's dark header and ivory ground, nothing else loaded. */
+:root {
+  color: #24232a;
+  background: #f4f2ed;
+  font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+body {
+  margin: 0;
+}
+.error-bar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 4%;
+  background: #24232a;
+}
+.error-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fffaf0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.error-brand b {
+  color: #f3cc63;
+}
+.error-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 11vh 24px 64px;
+  line-height: 1.55;
+}
+.error-code {
+  margin: 0;
+  color: #8d3c1b;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+h1 {
+  margin: 6px 0 12px;
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.error-message {
+  max-width: 52ch;
+  margin: 0 0 28px;
+  color: #55525c;
+}
+.error-home {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 8px;
+  background: #24232a;
+  color: #fffaf0;
+  font-weight: 700;
+  text-decoration: none;
+}
+.error-home:hover,
+.error-home:focus-visible {
+  background: #3a3842;
+}
+h2 {
+  margin: 40px 0 10px;
+  color: #55525c;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.error-games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.error-games a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid #dcd8ce;
+  border-radius: 8px;
+  background: #fffdf8;
+  color: #24232a;
+  font-weight: 600;
+  text-decoration: none;
+}
+.error-games a:hover,
+.error-games a:focus-visible {
+  border-color: #24232a;
+}
+a:focus-visible {
+  outline: 2px solid #f3cc63;
+  outline-offset: 2px;
+}

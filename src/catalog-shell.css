@@ -1,0 +1,185 @@
+/* The catalogue's loading shapes (shared/catalog-shell.ts): drawn by the static page and by the app while sets and
+   cards load, in the boxes of the real tabs, controls and cards, so the page holds still when they arrive. */
+.is-skel b, .is-skel i, .skel-input, .skel-count {
+  display: block;
+  border-radius: 4px;
+  background: #e7e2d8;
+}
+.upcoming-set.is-skel {
+  min-height: 66px;
+  box-sizing: border-box;
+  border-color: var(--line);
+  background: var(--paper);
+}
+.upcoming-set.is-skel i {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+}
+.upcoming-set.is-skel b {
+  width: 60%;
+  height: 14px;
+}
+.expansion-tab.is-skel, .expansion-more-trigger.is-skel {
+  box-sizing: border-box;
+  align-content: center;
+}
+.expansion-tab.is-skel b {
+  width: 70%;
+  height: 14px;
+}
+.expansion-more-trigger.is-skel {
+  width: 110px;
+}
+.expansion-more-trigger.is-skel b {
+  width: 60px;
+  height: 12px;
+}
+.catalog-controls.is-skel .catalog-search {
+  min-height: 44px;
+}
+.skel-input {
+  height: 44px;
+  border: 1px solid #d7d1c7;
+  border-radius: 6px;
+  background: #fffefa;
+  box-sizing: border-box;
+}
+.skel-count {
+  width: 48px;
+  height: 12px;
+}
+.catalog-controls.is-skel .filter-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) 82px;
+}
+.skel-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.skel-field i {
+  width: 46px;
+  height: 12px;
+  margin: 1px 0 2px;
+}
+.skel-field b {
+  height: 38px;
+  border: 1px solid #d7d1c7;
+  border-radius: 6px;
+  background: #fffefa;
+  box-sizing: border-box;
+}
+.set-caption.is-skel {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  margin-bottom: 16px;
+}
+.skel-caption {
+  width: 140px;
+  height: 16px;
+}
+.catalog-card.is-skel .card-art {
+  aspect-ratio: 63/88;
+  margin-bottom: 4px;
+  border-radius: 7px;
+  background: #e7e2d8;
+  box-shadow: none;
+}
+.catalog-card.is-skel .card-heading b {
+  width: 75%;
+  height: 14px;
+  margin-top: 2px;
+}
+.skel-button {
+  display: block;
+  width: 188px;
+  height: 40px;
+  border-radius: 7px;
+  background: #e7e2d8;
+}
+.top-grid .catalog-card.is-skel .card-art {
+  margin-bottom: 0;
+}
+.tray.is-skel {
+  min-height: min(620px, calc(100dvh - 28px));
+}
+.tray.is-skel .tray-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.tray.is-skel .tray-kicker i {
+  width: 58px;
+  height: 10px;
+}
+.tray.is-skel h2 b {
+  width: 150px;
+  height: 22px;
+  margin-top: 4px;
+}
+.tray.is-skel .tray-meta i {
+  width: 120px;
+  height: 12px;
+}
+.tray.is-skel .mini-page {
+  display: block;
+  aspect-ratio: 210/297;
+  width: 76px;
+  box-sizing: border-box;
+  border: 1px solid #d9d1c5;
+  border-radius: 3px;
+  background: #fff;
+}
+.tray.is-skel .mini-sheet {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+.tray.is-skel .tray-empty {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 26px 20px;
+}
+.tray.is-skel .tray-empty b {
+  width: 60%;
+  height: 16px;
+}
+.tray.is-skel .tray-empty i {
+  width: 90%;
+  height: 12px;
+}
+/* Phones: the search shares its row with Filters and the count drops below it, the set's shops sit under its name,
+   and card names take two lines over the set number. */
+@media (max-width: 760px) {
+  .upcoming-set.is-skel {
+    min-height: 72px;
+  }
+  .catalog-controls.is-skel .catalog-search {
+    display: block;
+    min-height: 67px;
+  }
+  .catalog-controls.is-skel .skel-input {
+    width: calc(100% - 92px);
+  }
+  .catalog-controls.is-skel .skel-count {
+    margin-top: 7px;
+  }
+  .catalog-controls.is-skel .filter-row {
+    display: none;
+  }
+  .set-caption.is-skel {
+    min-height: 60px;
+    align-items: flex-start;
+  }
+  .catalog-card.is-skel .card-heading {
+    min-height: 46px;
+  }
+  .top-grid .catalog-card.is-skel .card-heading {
+    min-height: 31px;
+  }
+}

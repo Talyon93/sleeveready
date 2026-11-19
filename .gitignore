@@ -1,0 +1,32 @@
+node_modules/
+dist/
+.env*
+!.env.example
+test-results/
+playwright-report/
+.sites-runtime/
+/en/
+/it/
+/de/
+/fr/
+/es/
+/audit-output/
+
+# Impeccable working files (review captures, decision pages); surface briefs are kept
+.impeccable/review/
+.impeccable/questions/
+
+# Local card index (npm run refresh:card-index, read by npm run dev)
+.cache/
+.card-pages/
+
+# Internal notes kept on disk, out of the repository
+/strategy/
+/TODO.md
+/VERIFICATION.md
+/LAUNCH_CHECKLIST.md
+/DESIGN.md
+/.impeccable/
+
+# Local Claude Code session files
+/.claude/
